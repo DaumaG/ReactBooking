@@ -4,12 +4,14 @@ import { BookingFormValues } from "../../types/booking";
 import { UserContext } from '../../context/UserContext';
 import styles from "./Form.module.scss";
 import Button from "../common/Button";
+import ResponsiveDatePickers from "./Calendar";
 import FormikField from "@/components/common/FormikInput";
 
 interface BookingFormProps {
     businessId?: string;
   }
 
+ 
 // 1. sukuriam initial values
 const registerFormInitialValues = (businessIdParam: string): BookingFormValues => {
     const { user } = useContext(UserContext);
@@ -47,23 +49,22 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
         {/* Render Prop funkcionalumas kuris leidžia ištraukti parametrus renderyje */}
         {({ isSubmitting }) => (
             <Form className={styles.form}>
-            <div className={styles.field}>
-                <label htmlFor="businessId">Business</label>
-                <Field type="text" name="businessId" />
-                <ErrorMessage name="name" component="div" className={styles.error} />
-            </div>
-            <div className={styles.field}>
-                <label htmlFor="date">Date</label>
-                <Field type="date" name="date" />
-                <ErrorMessage name="date" component="div" className={styles.error} />
-            </div>
-            <div className={styles.field}>
-                <label htmlFor="time">Time</label>
-                <Field type="text" name="time" />
-                <ErrorMessage name="time" component="div" className={styles.error} />
-            </div>
-
-            <Button type="submit" disabled={isSubmitting}>Book now</Button>
+              <div className="separate">
+                <div className={styles.field}>
+                    <label htmlFor="businessId">Business</label>
+                    <Field type="text" name="businessId" />
+                    <ErrorMessage name="name" component="div" className={styles.error} />
+                </div>
+                <div>
+                  <ResponsiveDatePickers/>
+                  {/* <div className={styles.field}>
+                      <label htmlFor="time">Time</label>
+                      <Field type="text" name="time" />
+                      <ErrorMessage name="time" component="div" className={styles.error} />
+                  </div> */}
+                </div>
+              </div>
+              <Button type="submit" disabled={isSubmitting}>Book now</Button>
             </Form>
         )}
         </Formik>
