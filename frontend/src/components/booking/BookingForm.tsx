@@ -93,7 +93,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
                     </DemoContainer>
                   </LocalizationProvider>
                 </div>
-                {data.imageUrls.length > 0 && 
+                {data && data.imageUrls && data.imageUrls.length > 0 && 
                 <div className={styles.bookingImage}>
                   <img src={data.imageUrls[0]} alt={data.name} className={styles.image} />
                 </div>  
