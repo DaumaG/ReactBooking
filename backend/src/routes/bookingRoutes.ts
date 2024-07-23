@@ -5,6 +5,19 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
+    // Extract date and time from the request body  
+    const { date, time } = req.body;  
+   
+    // Check if there is already a booking with the same date and time  
+    const existingBooking = await Booking.findOne({ date: date, time: time });  
+  
+    if (existingBooking) {  
+      // If a booking exists, respond with an error  
+      return res.status(400).json({  
+        message: "A booking already exists for this date and time."  
+      });  
+    }  
+
     const newBooking = new Booking(req.body);
     await newBooking.save();
     res.status(201).json(newBooking);

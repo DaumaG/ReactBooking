@@ -7,6 +7,9 @@ import { useBusiness } from "../business/hooks";
 import { useBookingCreate } from "./hooks";
 import { bookingCreateRequestInitialValues, bookingValidationSchema } from "@/components/booking/consts";import dayjs from 'dayjs';
 import { BookingCreateRequest } from './types';
+import { useSnackbar } from "notistack";
+import { ErrorResponse } from "@/types/error";
+
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -18,12 +21,13 @@ import { useState } from 'react';
  
 interface BookingFormProps {
     businessId?: string;
-  }
+}
 
 const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);  
   const { mutateAsync: createBooking } = useBookingCreate();
-  const navigate = useNavigate();  
+  const { enqueueSnackbar } = useSnackbar();
+
   const { user } = useContext(UserContext);
   if (!user){
     return <div>Unauthorized</div>
@@ -41,7 +45,17 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
   const initialValues = bookingCreateRequestInitialValues(businessId, user, data);
 
   const handleSubmit = async (values: BookingCreateRequest) => {
-    const { } = await createBooking(values);
+    try{
+      values.date.setHours(0, 0, 0, 0); 
+      await createBooking(values);
+    }
+    catch (error) {
+      const errorMessage = error as ErrorResponse;
+      console.log(errorMessage);
+      enqueueSnackbar(errorMessage?.response?.data.message ?? "", {
+        variant: "error",
+      })
+    };
     // Neveikia jeigu schema nepraeina
 
     /*if(error){
@@ -62,8 +76,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
    
     return date;  
   }
-  // 2. Panaudojam Formik komponentą ir priskiriam initialValues
-  // 3. sukuriam onSubmit f-ciją ir nurodom values tipą
+  
   return (
     <div className={styles.container}>
         <Formik
