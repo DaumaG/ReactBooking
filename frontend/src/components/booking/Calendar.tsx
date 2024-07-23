@@ -6,7 +6,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import '../../styles/calendarstyle.scss';
+
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+
 
 const ResponsiveDatePickers = () => {
     return (
@@ -16,12 +18,18 @@ const ResponsiveDatePickers = () => {
             'DatePicker'
           ]}
         >
-        <div className="rightAlignedDemoItem">  
-          <DemoItem> 
-            <StaticDatePicker defaultValue={dayjs('2024-07-23')} />
-          </DemoItem>
-          </div>
-        </DemoContainer>
+            <div className="separate">
+                <DesktopDatePicker defaultValue={dayjs(new Date())} />
+               
+            </div>
+            </DemoContainer>
+            <DemoContainer
+            components={[
+                'DatePicker'
+            ]}
+            >
+                <TimePicker label="Time" />
+             </DemoContainer>
       </LocalizationProvider>
     );
 }
