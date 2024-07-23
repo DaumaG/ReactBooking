@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import BusinessList from "./BusinessList";
 import { Business } from "./types";
 import { useBusinesses } from "./hooks";
+import { BrowserRouter } from "react-router-dom";
 
 jest.mock("./hooks");
 
@@ -34,14 +35,16 @@ describe("BusinessList Component", () => {
   });
 
   test("renders a list of businesses", () => {
-    render(<BusinessList />);
+    render(
+      <BrowserRouter><BusinessList /></BrowserRouter>);
 
     expect(screen.getByText("Business 1")).toBeInTheDocument();
     expect(screen.getByText("Business 2")).toBeInTheDocument();
   });
 
   test("filters businesses by category", () => {
-    render(<BusinessList categoryName="Restaurant" />);
+    render(
+      <BrowserRouter><BusinessList categoryName="Restaurant" /></BrowserRouter>);
 
     expect(screen.getByText("Business 1")).toBeInTheDocument();
     expect(screen.queryByText("Business 2")).not.toBeInTheDocument();

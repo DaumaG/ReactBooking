@@ -45,6 +45,9 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
     try{
       values.date.setHours(0, 0, 0, 0); 
       await createBooking(values);
+      enqueueSnackbar("Booking successful", {
+        variant: "success",
+      });
     }
     catch (error) {
       const errorMessage = error as ErrorResponse;
