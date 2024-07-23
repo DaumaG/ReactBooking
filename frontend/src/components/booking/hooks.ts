@@ -29,7 +29,7 @@ export const useBookingCreate = (): UseMutationResult<
 
 export const useBookingsGet = (userEmail: string) => {
     return useQuery({
-      queryKey: [BUSINESS_KEY],
+      queryKey: [GET_BOOKINGS_KEY],
       queryFn: () => getBookings(userEmail),
     });
   };

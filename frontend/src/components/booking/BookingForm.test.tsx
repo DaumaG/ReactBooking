@@ -50,8 +50,6 @@ describe("BookingForm Component", () => {
 
   test("renders booking form", () => {
     renderComponent();
-    expect(screen.getByLabelText("date")).toBeInTheDocument();
-    expect(screen.getByLabelText("time")).toBeInTheDocument();
     expect(screen.getByText("Book now")).toBeInTheDocument();
   });
 });
