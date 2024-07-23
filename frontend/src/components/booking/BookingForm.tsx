@@ -4,6 +4,7 @@ import { UserContext } from '../../context/UserContext';
 import styles from "./Form.module.scss";
 import Button from "../common/Button";
 import { useBusiness } from "../business/hooks";
+import { useBookingCreate } from "./hooks";
 import { bookingCreateRequestInitialValues, bookingValidationSchema } from "@/components/booking/consts";import dayjs from 'dayjs';
 import { BookingCreateRequest } from './types';
 import bookingStyles from "../booking/BookingForm.module.scss";
@@ -11,14 +12,19 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
- 
+import { useNavigate } from 'react-router-dom';  
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { ROUTES } from "../../router/consts";
+import { useState } from 'react';  
  
 interface BookingFormProps {
     businessId?: string;
   }
  
 const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);  
+  const { mutateAsync: createBooking } = useBookingCreate();
+  const navigate = useNavigate();  
   const { user } = useContext(UserContext);
   if (!user){
     return <div>Unauthorized</div>
@@ -35,11 +41,28 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
  
   const initialValues = bookingCreateRequestInitialValues(businessId, user, data);
  
-  const handleSubmit = (values: BookingCreateRequest) => {
+  const handleSubmit = async (values: BookingCreateRequest) => {
+    const { } = await createBooking(values);
     // Neveikia jeigu schema nepraeina
+
+    /*if(error){
+      setShowSuccessNotification(true);
+     return;
+    }*/
+
+    setShowSuccessNotification(true);
+    setTimeout(() => setShowSuccessNotification(false), 5000);    
     console.log(values);
+    /*navigate(ROUTES.HOME);*/
   };
  
+  const createDateWithHoursAndMinutes = (timeString: string) => {  
+    const date = new Date();  
+    const [hours, minutes] = timeString.split(':').map(Number);  
+    date.setHours(hours, minutes, 0, 0);
+   
+    return date;  
+  }
   // 2. Panaudojam Formik komponentą ir priskiriam initialValues
   // 3. sukuriam onSubmit f-ciją ir nurodom values tipą
   return (
@@ -54,7 +77,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
             <Form className={styles.form}>
               <div className="separate">
                 <div className={styles.field}>
-                    <label htmlFor="businessId">Business name: {initialValues.businessName}</label>
+                    <label htmlFor="businessId">Business name: <b>{initialValues.businessName}</b></label>
                 </div>
               </div>
               <div className={bookingStyles.topRow}>
@@ -65,10 +88,15 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
                   <DesktopDatePicker name="date" defaultValue={dayjs(initialValues.date)} onChange={(newValue) => setFieldValue("date", newValue?.toDate())} />
                 </DemoContainer>
                 <DemoContainer components={[ 'DatePicker' ]}>
-                    <TimePicker name="time" label="Time" onChange={(newValue) => setFieldValue("time", newValue?.format('HH:mm'))}  />
+                    <TimePicker name="time" label="Time" defaultValue={dayjs(createDateWithHoursAndMinutes(initialValues.time))} onChange={(newValue) => setFieldValue("time", newValue?.format('HH:mm'))}  />
                 </DemoContainer>
               </LocalizationProvider>
               <Button type="submit" disabled={isSubmitting}>Book now</Button>
+              {showSuccessNotification && (  
+              <div className={bookingStyles.notf}>  
+                Booking succeeded!  
+              </div>  
+)}  
             </Form>
         )}
         </Formik>

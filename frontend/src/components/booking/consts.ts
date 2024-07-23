@@ -13,6 +13,7 @@ export const bookingValidationSchema: Yup.Schema<BookingCreateRequest> =
     time: Yup.string().required(errorMessage.required),
     userEmail: Yup.string().required(errorMessage.required),
     userName: Yup.string().required(errorMessage.required),
+    status: Yup.string().required(errorMessage.required),
   });
 
 
@@ -23,6 +24,7 @@ export const bookingCreateRequestInitialValues = (businessIdParam: string, user:
         date: new Date(),
         time: "14:00",
         userEmail: user?.email ?? "",
-        userName: user?.name ?? ""
+        userName: user?.name ?? "",
+        status: "pending"
     }
 };
