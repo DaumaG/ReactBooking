@@ -5,5 +5,15 @@ export interface BookingCreateRequest {
     time: string;
     userEmail: string;
     userName: string;
+    status: string;
+}
+
+export interface Booking {
+    businessId: string;
+    date: Date;
+    time: string;
+    userEmail: string;
+    userName: string;
+    status: string;
 }
   
