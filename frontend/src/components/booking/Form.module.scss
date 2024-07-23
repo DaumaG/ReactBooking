@@ -50,6 +50,26 @@
   justify-content: space-between;
 }
 
+.display-flex {
+  display: flex;
+}
+
+.jcdf {
+  justify-content: space-between;
+  display: flex;
+}
+
 button {
   margin-top: 1rem;
 }
+
+.bookingImage {  
+  display: flex;  
+  justify-content: space-between; /* This will put space between the two flex items */  
+  align-items: center; /* This will vertically align the items if they are of different heights */  
+  
+  img {
+    width: 20rem;
+    margin-left: 2rem;
+  }
+}  
