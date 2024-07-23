@@ -1,6 +1,6 @@
 .avatarContainer {  
   position: relative;  
-  display: inline-block; /* Adjust based on your layout */  
+  display: inline-block;  
 }  
   
 .avatar {  
@@ -15,37 +15,38 @@
   align-items: center;  
   text-transform: capitalize;  
   cursor: pointer;  
-  transition: background-color 0.2s ease;  
-  user-select: none; /* Prevent text selection */  
+  transition: background-color 0.2s ease, transform 0.2s ease;  
+  user-select: none;  
+  border: 2px solid transparent; /* Added border for transition effect */  
 }  
   
 .avatar:hover {  
   background-color: #03337a;  
+  transform: scale(1.05); /* Slight scale effect on hover */  
 }  
   
 .dropdown {  
   position: absolute;  
-  top: 100%; /* Aligns directly under the avatar */  
+  top: 100%;  
   right: 0;  
   background-color: #ffffff;  
   border: 1px solid #e3e3e3;  
   border-radius: 4px;  
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* More pronounced shadow */  
   padding: 0.5rem 0;  
   display: none;  
   min-width: 10rem;  
   z-index: 1000;  
-  overflow: hidden;  
   opacity: 0;  
-  transition: opacity 0.3s, visibility 0s linear 0.3s, transform 0.3s; /* Use visibility to delay hiding */  
+  transform: translateY(-10px); /* Start slightly above for entry effect */  
+  transition: opacity 0.3s, transform 0.3s;  
 }  
   
 .avatarContainer:hover .dropdown {  
   display: block;  
-  visibility: visible; /* Make dropdown visible */  
   opacity: 1;  
   transform: translateY(0);  
-  transition-delay: 0s; /* Reset transition delay when showing */  
+  transition-delay: 0s;  
 }  
   
 .dropdown ul {  
@@ -59,7 +60,7 @@
   cursor: pointer;  
   color: #333;  
   font-size: 0.9rem;  
-  transition: background-color 0.15s ease;  
+  transition: background-color 0.2s ease;  
 }  
   
 .dropdown li:not(:last-child) {  
