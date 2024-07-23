@@ -1,0 +1,23 @@
+.aboutUsContainer {  
+    padding: 2rem;  
+    background-color: #f9f9f9; /* Light grey background */  
+    border-radius: 0.5rem; /* Rounded corners */  
+    margin: 1rem 0; /* Spacing from other elements */  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */  
+  }  
+    
+  .aboutUsTitle {  
+    text-align: center;  
+    color: #333; /* Dark grey color for the text */  
+    margin-bottom: 1rem; /* Space between title and text */  
+  }  
+    
+  .aboutUsText {  
+    color: #555; /* Slightly lighter grey color for the text */  
+    font-size: 1.1rem; /* Slightly larger font size for readability */  
+    line-height: 1.6; /* Space between lines */  
+    text-align: justify; /* Justify text for a cleaner look */  
+    max-width: 800px; /* Maximum width of the text block */  
+    margin: auto; /* Center the text block horizontally */  
+  }  
+  

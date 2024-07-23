@@ -28,8 +28,9 @@ export const useBookingCreate = (): UseMutationResult<
 };
 
 export const useBookingsGet = (userEmail: string) => {
+  console.log(`atejome i useBookingsGet su email ${userEmail}`);
   return useQuery({
-    queryKey: [BUSINESS_KEY],
+    queryKey: [GET_BOOKINGS_KEY],
     queryFn: () => getBookings(userEmail),
   });
 };
