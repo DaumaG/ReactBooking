@@ -17,22 +17,20 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }));
 
-const loginMock = jest.fn();
+const mockUser: User = {  
+    _id: '1',  
+    name: 'John Doe',  
+    email: 'john.doe@example.com',  
+};  
 
-    // You can create a mock user inline like this:  
-    const mockUser: User = {  
-        _id: '1',  
-        name: 'John Doe',  
-        email: 'john.doe@example.com',  
-    };  
 describe("BookingForm Component", () => {
   beforeEach(() => {
-    (useBookingCreate as jest.Mock).mockReturnValue({
-      mutateAsync: jest.fn(),
-    });
-    (useBookingsGet as jest.Mock).mockReturnValue({
-        mutateAsync: jest.fn(),
-    });
+    // (useBookingCreate as jest.Mock).mockReturnValue({
+    //   mutateAsync: jest.fn(),
+    // });
+    // (useBookingsGet as jest.Mock).mockReturnValue({
+    //     mutateAsync: jest.fn(),
+    // });
   });
 
   const renderComponent = () =>
@@ -52,8 +50,8 @@ describe("BookingForm Component", () => {
 
   test("renders booking form", () => {
     renderComponent();
-    expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
-    expect(screen.getByText("Log in")).toBeInTheDocument();
+    expect(screen.getByLabelText("date")).toBeInTheDocument();
+    expect(screen.getByLabelText("time")).toBeInTheDocument();
+    expect(screen.getByText("Book now")).toBeInTheDocument();
   });
 });

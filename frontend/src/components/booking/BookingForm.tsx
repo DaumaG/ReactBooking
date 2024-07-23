@@ -14,9 +14,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { useNavigate } from 'react-router-dom';  
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { ROUTES } from "../../router/consts";
 import { useState } from 'react';  
  
 interface BookingFormProps {
@@ -88,16 +86,18 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
                 <div>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={[ 'DatePicker' ]}>
-                      <DesktopDatePicker name="date" defaultValue={dayjs(initialValues.date)} onChange={(newValue) => setFieldValue("date", newValue?.toDate())} />
+                      <DesktopDatePicker name="date" label="date" defaultValue={dayjs(initialValues.date)} onChange={(newValue) => setFieldValue("date", newValue?.toDate())} />
                     </DemoContainer>
                     <DemoContainer components={[ 'DatePicker' ]}>
                         <TimePicker name="time" label="Time" defaultValue={dayjs(createDateWithHoursAndMinutes(initialValues.time))} onChange={(newValue) => setFieldValue("time", newValue?.format('HH:mm'))}  />
                     </DemoContainer>
                   </LocalizationProvider>
                 </div>
+                {data.imageUrls.length > 0 && 
                 <div className={styles.bookingImage}>
                   <img src={data.imageUrls[0]} alt={data.name} className={styles.image} />
                 </div>  
+                }
               </div>
               <Button type="submit" disabled={isSubmitting}>Book now</Button>
               {showSuccessNotification && (  
