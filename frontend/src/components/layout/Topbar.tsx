@@ -19,7 +19,7 @@ const Topbar = () => {
     },
     {
       href: ROUTES.SERVICES,
-      label: "Services",
+      label: "My bookings",
     },
     {
       href: ROUTES.ABOUT_US,

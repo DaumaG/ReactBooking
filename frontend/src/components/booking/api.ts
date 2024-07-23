@@ -7,7 +7,10 @@ export const createBooking = async (bookingCreateRequest: BookingCreateRequest):
 };
 
 export const getBookings = async (userEmail: string): Promise<Booking[]> => {
-  const response = await axiosInstance.get(`/user/${userEmail}`);
+  console.log(`atejome i getBookings su email ${userEmail}`);
+  const response = await axiosInstance.get(`/bookings/user/${userEmail}`);
+  console.log("musu response yra:");
+  console.log(response);
   return await response.data;
 };
 
