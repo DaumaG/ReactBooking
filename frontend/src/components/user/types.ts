@@ -18,3 +18,8 @@ export interface LoginResponse {
 export interface RegisterRequest extends LoginRequest {
   name: string;
 }
+
+export interface BookingCreateRequest {
+  date: Date;
+  time: string;
+}
