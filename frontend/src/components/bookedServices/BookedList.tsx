@@ -18,6 +18,11 @@ const GetBookings = () => {
   return data;
 }
 const BookedList = () => {
+  const { user } = useContext(UserContext);
+  if (!user){
+    return <div>Unauthorized</div>
+  }
+  
   const myBookings = GetBookings() ?? [];
   const { data } = useBusinesses();
   const businesses = data ?? [];

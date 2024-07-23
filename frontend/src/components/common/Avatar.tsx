@@ -12,9 +12,9 @@ const Avatar = ({ children }: PropsWithChildren<{}>) => {
   const navigate = useNavigate();
   const { user, logout } = useContext(UserContext);
   
-  const handleLogout = () => {  
+  const handleLogout = () => { 
+    logout();  
     navigate(ROUTES.LOGIN);
-    logout;  
   };  
   
 
