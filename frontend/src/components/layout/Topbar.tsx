@@ -6,6 +6,7 @@ import Logo from "../../assets/logo.svg";
 import { useContext } from "react";
 import Avatar from "../common/Avatar";
 import { UserContext } from "@/context/UserContext";
+import ButtonAvatar from "../common/ButtonAvatar";
 
 const Topbar = () => {
   const { user } = useContext(UserContext);
