@@ -13,7 +13,8 @@ const Avatar = ({ children }: PropsWithChildren<{}>) => {
   const { user, logout } = useContext(UserContext);
   
   const handleLogout = () => {  
-    navigate(ROUTES.LOGIN);  
+    navigate(ROUTES.LOGIN);
+    logout;  
   };  
   
 
@@ -59,7 +60,7 @@ const Avatar = ({ children }: PropsWithChildren<{}>) => {
         >  
           <ul>  
             <li><button onClick={() => { /* handle settings action */ }}>Settings</button></li>  
-            <li><button onClick={logout}>Logout</button></li>  
+            <li><button onClick={handleLogout}>Logout</button></li>  
           </ul>  
         </div>  
       )}  
