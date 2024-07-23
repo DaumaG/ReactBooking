@@ -96,7 +96,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
               </div>
               <Button type="submit" disabled={isSubmitting}>Book now</Button>
               {showSuccessNotification && (  
-              <div className={bookingStyles.notf}>  
+              <div className={styles.notf}>  
                 Booking succeeded!  
               </div>  
 )}  
