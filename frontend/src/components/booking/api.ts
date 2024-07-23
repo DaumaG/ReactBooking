@@ -5,3 +5,9 @@ export const createBooking = async (bookingCreateRequest: BookingCreateRequest):
   const response = await axiosInstance.post("/bookings", bookingCreateRequest);
   return await response.data;
 };
+
+export const getBookings = async (userEmail: string): Promise<Booking[]> => {
+  const response = await axiosInstance.get(`/user/${userEmail}`);
+  return await response.data;
+};
+
