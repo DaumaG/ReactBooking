@@ -4,6 +4,7 @@ import { UserContext } from '../../context/UserContext';
 import styles from "./Form.module.scss";
 import Button from "../common/Button";
 import { useBusiness } from "../business/hooks";
+import { useBookingCreate } from "./hooks";
 import { bookingCreateRequestInitialValues, bookingValidationSchema } from "@/components/booking/consts";import dayjs from 'dayjs';
 import { BookingCreateRequest } from './types';
 
@@ -18,23 +19,8 @@ interface BookingFormProps {
     businessId?: string;
   }
 
- 
-// 1. sukuriam initial values
-// const registerFormInitialValues = (businessIdParam: string): BookingCreateRequest => {
-//     const { user } = useContext(UserContext);
-//     const { data } = useBusiness(businessIdParam);
-
-//     return {
-//         businessId: businessIdParam,
-//         businessName: data?.name ?? "",
-//         date: new Date(),
-//         time: "14:00",
-//         userEmail: user?.email ?? "",
-//         userName: user?.name ?? ""
-//     }
-// };
-
 const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
+  const { mutateAsync: createBooking } = useBookingCreate();
   const { user } = useContext(UserContext);
   if (!user){
     return <div>Unauthorized</div>
@@ -51,11 +37,19 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
 
   const initialValues = bookingCreateRequestInitialValues(businessId, user, data);
 
-  const handleSubmit = (values: BookingCreateRequest) => {
+  const handleSubmit = async (values: BookingCreateRequest) => {
+    const { data, error } = await createBooking(values);
     // Neveikia jeigu schema nepraeina
     console.log(values);
   };
 
+  const createDateWithHoursAndMinutes = (timeString: string) => {  
+    const date = new Date();  
+    const [hours, minutes] = timeString.split(':').map(Number);  
+    date.setHours(hours, minutes, 0, 0);
+    
+    return date;  
+  }
   // 2. Panaudojam Formik komponentą ir priskiriam initialValues
   // 3. sukuriam onSubmit f-ciją ir nurodom values tipą
   return (
@@ -66,7 +60,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
         onSubmit={handleSubmit}
         >
         {/* Render Prop funkcionalumas kuris leidžia ištraukti parametrus renderyje */}
-        {({ setFieldValue, values, isSubmitting }) => (
+        {({ setFieldValue, isSubmitting }) => (
             <Form className={styles.form}>
               <div className="separate">
                 <div className={styles.field}>
@@ -75,10 +69,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
               </div>  
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={[ 'DatePicker' ]}>
-                  <DesktopDatePicker defaultValue={dayjs(initialValues.date)} />
+                  <DesktopDatePicker name="date" defaultValue={dayjs(initialValues.date)} onChange={(newValue) => setFieldValue("date", newValue?.toDate())} />
                 </DemoContainer>
                 <DemoContainer components={[ 'DatePicker' ]}>
-                    <TimePicker label="Time" />
+                    <TimePicker name="time" label="Time" defaultValue={dayjs(createDateWithHoursAndMinutes(initialValues.time))} onChange={(newValue) => setFieldValue("time", newValue?.format('HH:mm'))}  />
                 </DemoContainer>
               </LocalizationProvider>
               <Button type="submit" disabled={isSubmitting}>Book now</Button>
