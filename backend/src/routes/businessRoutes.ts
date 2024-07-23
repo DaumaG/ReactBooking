@@ -39,12 +39,12 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  try {
-    const business = await Business.findById(req.params.id);
+    try {
+    const business = await Business.findOne({ _id: req.params.id });
     if (business) {
       res.json(business);
     } else {
-      res.status(404).send("Business not found");
+      res.status(404).send(`Business not found`);
     }
   } catch (err) {
     res.status(500).json({ message: "Error fetching business", error: err });

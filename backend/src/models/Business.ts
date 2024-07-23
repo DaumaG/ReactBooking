@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 interface IBusiness {
+  _id: string;
   name: string;
   about: string;
   address: string;
@@ -11,6 +12,10 @@ interface IBusiness {
 }
 
 const businessSchema = new mongoose.Schema<IBusiness>({
+  _id: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
