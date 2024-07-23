@@ -1,12 +1,83 @@
-.avatar {
-  background-color: #025033;
-  color: #ffffff;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-}
+.avatarContainer {  
+  position: relative;  
+  display: inline-block; /* Adjust based on your layout */  
+}  
+  
+.avatar {  
+  background-color: #022150;  
+  color: #ffffff;  
+  width: 3rem;  
+  height: 3rem;  
+  border-radius: 50%;  
+  font-size: 1.5rem;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  text-transform: capitalize;  
+  cursor: pointer;  
+  transition: background-color 0.2s ease;  
+  user-select: none; /* Prevent text selection */  
+}  
+  
+.avatar:hover {  
+  background-color: #03337a;  
+}  
+  
+.dropdown {  
+  position: absolute;  
+  top: 100%; /* Aligns directly under the avatar */  
+  right: 0;  
+  background-color: #ffffff;  
+  border: 1px solid #e3e3e3;  
+  border-radius: 4px;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  padding: 0.5rem 0;  
+  display: none;  
+  min-width: 10rem;  
+  z-index: 1000;  
+  overflow: hidden;  
+  opacity: 0;  
+  transition: opacity 0.3s, visibility 0s linear 0.3s, transform 0.3s; /* Use visibility to delay hiding */  
+}  
+  
+.avatarContainer:hover .dropdown {  
+  display: block;  
+  visibility: visible; /* Make dropdown visible */  
+  opacity: 1;  
+  transform: translateY(0);  
+  transition-delay: 0s; /* Reset transition delay when showing */  
+}  
+  
+.dropdown ul {  
+  list-style: none;  
+  margin: 0;  
+  padding: 0;  
+}  
+  
+.dropdown li {  
+  padding: 0.75rem 1.5rem;  
+  cursor: pointer;  
+  color: #333;  
+  font-size: 0.9rem;  
+  transition: background-color 0.15s ease;  
+}  
+  
+.dropdown li:not(:last-child) {  
+  border-bottom: 1px solid #e3e3e3;  
+}  
+  
+.dropdown li:hover {  
+  background-color: #f2f2f2;  
+}  
+  
+.dropdown button {  
+  background: none;  
+  border: none;  
+  display: block;  
+  width: 100%;  
+  text-align: left;  
+  padding: 0;  
+  cursor: pointer;  
+  color: inherit;  
+  font-size: inherit;  
+}  
