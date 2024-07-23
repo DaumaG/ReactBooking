@@ -21,6 +21,7 @@ interface BookingFormProps {
     businessId?: string;
 }
 
+const tomorrow = dayjs().add(1, 'day');
 const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);  
   const { mutateAsync: createBooking } = useBookingCreate();
@@ -60,7 +61,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
   };
  
   const createDateWithHoursAndMinutes = (timeString: string) => {  
-    const date = new Date();  
+    const date = new Date(); 
     const [hours, minutes] = timeString.split(':').map(Number);  
     date.setHours(hours, minutes, 0, 0);
    
@@ -86,7 +87,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
                 <div>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={[ 'DatePicker' ]}>
-                      <DesktopDatePicker name="date" label="date" defaultValue={dayjs(initialValues.date)} onChange={(newValue) => setFieldValue("date", newValue?.toDate())} />
+                      <DesktopDatePicker disablePast minDate={tomorrow} name="date" label="date" defaultValue={tomorrow} onChange={(newValue) => setFieldValue("date", newValue?.toDate())} />
                     </DemoContainer>
                     <DemoContainer components={[ 'DatePicker' ]}>
                         <TimePicker name="time" label="Time" defaultValue={dayjs(createDateWithHoursAndMinutes(initialValues.time))} onChange={(newValue) => setFieldValue("time", newValue?.format('HH:mm'))}  />
