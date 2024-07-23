@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import React, { useContext } from 'react';
 import { BookingFormValues } from "../../types/booking";
 import { UserContext } from '../../context/UserContext';
+import ResponsiveDatePickers from "./Calendar"
 // import { registerValidationSchema } from "./consts";
 // import styles from "./Form.module.scss";
 
@@ -9,6 +10,7 @@ interface BookingFormProps {
     businessId?: string;
   }
 
+ 
 // 1. sukuriam initial values
 const registerFormInitialValues = (businessIdParam: string): BookingFormValues => {
     const { user } = useContext(UserContext);
@@ -56,18 +58,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
             //   className={styles.error}
             />
           </div>
-          <div className={""}>
-            <label htmlFor="date">Date</label>
-            {/* 4. Sukuriam inputus su Field komponentu ir būtinai!!! panaudojam name atributą */}
-            {/* Jeigu nepridėsite "name" atributo neveiks Formiko onChange handleris */}
-            <Field type="date" name="date" />
-            {/* Panaudojam komponentą ir nurodom name atributą kuriam laukui rodo errorą */}
-            <ErrorMessage
-              name="date"
-              component="div"
-            //   className={styles.error}
-            />
-          </div>
+          <ResponsiveDatePickers/>
           <div className={""}>
             <label htmlFor="time">Time</label>
             {/* 4. Sukuriam inputus su Field komponentu ir būtinai!!! panaudojam name atributą */}
