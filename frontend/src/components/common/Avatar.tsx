@@ -59,7 +59,6 @@ const Avatar = ({ children }: PropsWithChildren<{}>) => {
           onMouseLeave={handleMouseLeave}  
         >  
           <ul>  
-            <li><button onClick={() => { /* handle settings action */ }}>Settings</button></li>  
             <li><button onClick={handleLogout}>Logout</button></li>  
           </ul>  
         </div>  

@@ -14,14 +14,17 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
- 
+import { useNavigate } from 'react-router-dom';  
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { ROUTES } from "../../router/consts";
+import { useState } from 'react';  
  
 interface BookingFormProps {
     businessId?: string;
 }
 
 const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);  
   const { mutateAsync: createBooking } = useBookingCreate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -57,14 +60,23 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
       })
     };
     // Neveikia jeigu schema nepraeina
-    console.log(values);
-  };
 
+    /*if(error){
+      setShowSuccessNotification(true);
+     return;
+    }*/
+
+    setShowSuccessNotification(true);
+    setTimeout(() => setShowSuccessNotification(false), 5000);    
+    console.log(values);
+    /*navigate(ROUTES.HOME);*/
+  };
+ 
   const createDateWithHoursAndMinutes = (timeString: string) => {  
     const date = new Date();  
     const [hours, minutes] = timeString.split(':').map(Number);  
     date.setHours(hours, minutes, 0, 0);
-    
+   
     return date;  
   }
   
@@ -80,7 +92,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
             <Form className={styles.form}>
               <div className="separate">
                 <div className={styles.field}>
-                    <label htmlFor="businessId">Business name: {initialValues.businessName}</label>
+                    <label htmlFor="businessId">Business name: <b>{initialValues.businessName}</b></label>
                 </div>
               </div>
               <div className={styles.jcdf}>
@@ -99,6 +111,11 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
                 </div>  
               </div>
               <Button type="submit" disabled={isSubmitting}>Book now</Button>
+              {showSuccessNotification && (  
+              <div className={styles.notf}>  
+                Booking succeeded!  
+              </div>  
+)}  
             </Form>
         )}
         </Formik>

@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import BusinessCard from "./BusinessCard";
 import styles from "./BusinessList.module.scss";
 import { Category } from "../category/types";
 import { useBusinesses } from "./hooks";
+import BookedCard from "../bookedServices/BookedCard";
+import BusinessCard from "./BusinessCard";
 
 interface BusinessListProps {
   categoryName?: Category["name"];

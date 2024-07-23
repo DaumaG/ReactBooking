@@ -1,5 +1,13 @@
+import BookedList from "@/components/bookedServices/BookedList";
+import BusinessList from "@/components/bookedServices/BookedList";
+
 const Services = () => {
-  return <h1>Services</h1>;
+  return (
+    <>
+    Booked items:
+      <BookedList />
+    </>
+  );
 };
 
 export default Services;

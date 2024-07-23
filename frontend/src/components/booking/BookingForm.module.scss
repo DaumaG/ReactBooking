@@ -1,0 +1,23 @@
+.topRow {  
+    display: flex;  
+    justify-content: space-between; /* This will put space between the two flex items */  
+    align-items: center; /* This will vertically align the items if they are of different heights */  
+  }  
+
+  .notf {  
+    padding: 10px;  
+    margin-top: 3rem;  
+    color: #fff;  
+    background-color: #a5e9a8; /* A green shade */  
+    text-align: center;  
+    border-radius: 8px; /* Rounded corners like the form */  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */  
+    font-size: 1rem; /* Adjust the font size as needed */  
+    font-weight: bold; /* Make the text bold */  
+    width: 100%; /* Adjust width as needed */  
+    max-width: 400px; /* Maximum width */  
+    margin-left: auto; /* Center the notification horizontally */  
+    margin-right: auto;  
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Smooth transition for appearance */  
+    transform: translateY(-20px); /* Initial position for animation */  
+  }  
