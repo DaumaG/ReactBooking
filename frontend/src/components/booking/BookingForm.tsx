@@ -48,28 +48,17 @@ const BookingForm: React.FC<BookingFormProps> = ({ businessId }) => {
     try{
       values.date.setHours(0, 0, 0, 0); 
       await createBooking(values);
-      enqueueSnackbar("Booking successful", {
-        variant: "success",
-      });
+      setShowSuccessNotification(true);
+      setTimeout(() => setShowSuccessNotification(false), 3000);    
     }
     catch (error) {
+      setShowSuccessNotification(false);
       const errorMessage = error as ErrorResponse;
-      console.log(errorMessage);
-      enqueueSnackbar(errorMessage?.response?.data.message ?? "", {
-        variant: "error",
-      })
+        console.log(errorMessage);
+        enqueueSnackbar(errorMessage?.response?.data.message ?? "", {
+          variant: "error",
+        })
     };
-    // Neveikia jeigu schema nepraeina
-
-    /*if(error){
-      setShowSuccessNotification(true);
-     return;
-    }*/
-
-    setShowSuccessNotification(true);
-    setTimeout(() => setShowSuccessNotification(false), 5000);    
-    console.log(values);
-    /*navigate(ROUTES.HOME);*/
   };
  
   const createDateWithHoursAndMinutes = (timeString: string) => {  
